@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/utils/size_config.dart';
+import 'package:flutter_starter/utils/size_config.dart';
 
 /// Create a [ThemeData] static [ThemeData.LightTheme] or [ThemeData.DarkTheme]
 ///

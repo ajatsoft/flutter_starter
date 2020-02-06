@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/utils/app_theme.dart';
-import 'package:flutter_boilerplate/utils/size_config.dart';
-import 'package:flutter_boilerplate/utils/strings.dart';
-import 'package:flutter_boilerplate/view/custom_appbar.dart';
-import 'package:flutter_boilerplate/view/home/home.dart';
+import 'package:flutter_starter/utils/app_theme.dart';
+import 'package:flutter_starter/utils/size_config.dart';
+import 'package:flutter_starter/utils/strings.dart';
+import 'package:flutter_starter/view/custom_appbar.dart';
+import 'package:flutter_starter/view/home/home.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: Strings.appTitle,
-              theme: AppTheme.darkTheme,
+              theme: AppTheme.lightTheme,
               home: Scaffold(
                 appBar: customAppBar(context),
                 body: HomeScreen(),

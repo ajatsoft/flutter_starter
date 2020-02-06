@@ -1,4 +1,4 @@
-# flutter_boilerplate
+# flutter_starter
 
 A flutter boilerplate
 

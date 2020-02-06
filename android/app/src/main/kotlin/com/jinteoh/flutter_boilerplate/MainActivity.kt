@@ -1,4 +1,4 @@
-package com.jinteoh.flutter_boilerplate
+package com.jinteoh.flutter_starter
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/utils/strings.dart';
+import 'package:flutter_starter/utils/strings.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
