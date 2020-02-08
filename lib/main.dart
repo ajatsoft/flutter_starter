@@ -20,7 +20,7 @@ void main() => runApp(
 
 class MyApp extends StatelessWidget {
   final List<Widget> navPages = [
-    HFlutterSwiper(),
+    HomeScreen(),
     VideoScreen(),
   ];
 
