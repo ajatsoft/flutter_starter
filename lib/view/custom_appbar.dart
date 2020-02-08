@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-PreferredSizeWidget customAppBar(context) {
+PreferredSizeWidget customAppBar(BuildContext context) {
   return PreferredSize(
     preferredSize: Size.fromHeight(0),
     child: AppBar(

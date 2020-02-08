@@ -16,7 +16,7 @@ import 'package:flutter_starter/utils/size_config.dart';
 class AppTheme {
   AppTheme._();
 
-  //static String _fontFamily = FontFamily.sfPro;
+  static final String _fontFamily = FontFamily.sfPro;
   static const Color appBackgroundColor = Color(0xffffffff);
   static const Color subtitleTextColor = Colors.grey;
 
@@ -26,10 +26,16 @@ class AppTheme {
       brightness: Brightness.light,
       color: Colors.white,
     ),
+    bottomAppBarTheme: BottomAppBarTheme(
+      color: Colors.white,
+    ),
     scaffoldBackgroundColor: AppTheme.appBackgroundColor,
     brightness: Brightness.light,
     textTheme: _lightTextTheme,
-    fontFamily: FontFamily.sfPro,
+    fontFamily: _fontFamily,
+    iconTheme: IconThemeData(
+      color: Colors.black,
+    ),
   );
 
   static final _lightTextTheme = TextTheme(
@@ -86,10 +92,16 @@ class AppTheme {
       brightness: Brightness.dark,
       color: Colors.black,
     ),
-    scaffoldBackgroundColor: Colors.black,
+    bottomAppBarTheme: BottomAppBarTheme(
+      color: Colors.black,
+    ),
+    scaffoldBackgroundColor: Colors.black87,
     brightness: Brightness.dark,
     textTheme: darkTextTheme,
-    fontFamily: FontFamily.sfPro,
+    fontFamily: _fontFamily,
+    iconTheme: IconThemeData(
+      color: Colors.white,
+    ),
   );
 
   static final TextTheme darkTextTheme = TextTheme(
