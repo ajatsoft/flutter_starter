@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_starter/utils/app_localizations.dart';
 import 'package:flutter_starter/utils/strings.dart';
 
 class VideoScreen extends StatelessWidget {
@@ -6,7 +7,7 @@ class VideoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        Strings.videoTitle,
+        AppLocalizations.of(context).translate('video_title'),
         style: Theme.of(context).textTheme.title,
       ),
     );
