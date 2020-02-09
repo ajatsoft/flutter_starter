@@ -17,13 +17,15 @@ class CustomDefaultBottomNavBar extends StatelessWidget {
     items.add(
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
-        title: Text('Home'),
+        title: Text(''),
       ),
     );
     items.add(
       BottomNavigationBarItem(
-        icon: Icon(Icons.ondemand_video),
-        title: Text('Video'),
+        icon: Icon(Icons.four_k),
+        title: Stack(
+          children: <Widget>[Text('hello')],
+        ),
       ),
     );
   }
@@ -38,6 +40,8 @@ class CustomDefaultBottomNavBar extends StatelessWidget {
       currentIndex: navigationBloc.selectedIndex,
       items: items,
       type: BottomNavigationBarType.fixed,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
     );
   }
 }
@@ -69,9 +73,13 @@ class BottomNavigationBarIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(
-      icon,
-      color: Colors.black,
+    return Column(
+      children: <Widget>[
+        Icon(
+          icon,
+          color: Colors.black,
+        ),
+      ],
     );
   }
 }
