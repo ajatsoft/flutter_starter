@@ -85,7 +85,7 @@ class HomeScreenSliverScrollView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         TabBarButton(
-                          title: 'Travelling',
+                          title: 'Travellings',
                           isSelected: selectedIndex == 0,
                           onTabTap: _signInAnonymously,
                         ),
