@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math';
 import 'package:responsive_widgets/responsive_widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreenSliverScrollView extends StatelessWidget {
   final int selectedIndex = 1;
+
+  Future<void> _signInAnonymously() async {
+    final authResult = await FirebaseAuth.instance.signInAnonymously();
+    print('${authResult.user.uid}');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +87,7 @@ class HomeScreenSliverScrollView extends StatelessWidget {
                         TabBarButton(
                           title: 'Travelling',
                           isSelected: selectedIndex == 0,
-                          onTabTap: () {
-                            //onTabTap(0);
-                          },
+                          onTabTap: _signInAnonymously,
                         ),
                         TabBarButton(
                           title: 'Nature',
