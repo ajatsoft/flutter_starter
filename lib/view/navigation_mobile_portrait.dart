@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/utils/app_localizations.dart';
+import 'package:flutter_starter/view/home/home_screen.dart';
 import 'package:flutter_starter/view/home/home_screen_sliver_scrollview.dart';
 
 import 'package:responsive_widgets/responsive_widgets.dart';
@@ -64,7 +65,8 @@ class _NavigationViewMobilePortrait
                   key: homeKey,
                   onGenerateRoute: (route) => MaterialPageRoute(
                     settings: route,
-                    builder: (context) => HomeScreenSliverScrollView(),
+                    //builder: (context) => HomeScreenSliverScrollView(),
+                    builder: (context) => HomeScreen(),
                   ),
                 ),
                 Navigator(
