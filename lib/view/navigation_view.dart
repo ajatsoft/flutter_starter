@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_starter/view/home/home_screen.dart';
+import 'package:flutter_starter/view/landing/landing_screen.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'navigation_mobile_landscape.dart';
 import 'navigation_mobile_portrait.dart';
@@ -10,7 +10,7 @@ class NavigationView extends StatelessWidget {
     return ScreenTypeLayout(
       mobile: OrientationLayoutBuilder(
         //portrait: (context) => NavigationViewMobilePortrait(),
-        portrait: (context) => HomeScreen(),
+        portrait: (context) => LandingScreen(),
         landscape: (context) => NavigationViewMobileLandscape(),
       ),
     );

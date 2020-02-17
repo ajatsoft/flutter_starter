@@ -1,19 +1,24 @@
 import 'dart:async';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_page_transition/flutter_page_transition.dart';
+import 'package:flutter_starter/view/landing/landing_widgets.dart';
+import 'package:flutter_starter/view/landing/sign_in_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_widgets/responsive_widgets.dart';
 
-class HomeScreen extends StatefulWidget {
+class LandingScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _LandingScreenState createState() => _LandingScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _LandingScreenState extends State<LandingScreen> {
   int _currentPage = 0;
+  final int transitionDuration = 5; // seconds
+  final int transitionAnimationSpeed = 300; // milliseconds
   final PageController _pageController = PageController(initialPage: 0);
 
-  final List<Slide> slideList = [
+  final List<Slide> slides = [
     Slide(
         imageUrl: 'images/1.svg',
         title: 'Welcome',
@@ -30,30 +35,30 @@ class _HomeScreenState extends State<HomeScreen> {
         description: 'Learning situation, every stage is clear\n'),
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    Timer.periodic(Duration(seconds: 5), (Timer timer) {
-      if (_currentPage < 2) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
-
-      _pageController.animateToPage(
-        _currentPage,
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeIn,
-      );
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _pageController.dispose();
-  }
-
+//  @override
+//  void initState() {
+//    super.initState();
+//    Timer.periodic(Duration(seconds: transitionDuration), (Timer timer) {
+//      if (_currentPage < slides.length - 1) {
+//        _currentPage++;
+//      } else {
+//        _currentPage = 0;
+//      }
+//
+//      _pageController.animateToPage(
+//        _currentPage,
+//        duration: Duration(milliseconds: transitionAnimationSpeed),
+//        curve: Curves.easeIn,
+//      );
+//    });
+//  }
+//
+//  @override
+//  void dispose() {
+//    super.dispose();
+//    _pageController.dispose();
+//  }
+//
   _onPageChanged(int index) {
     setState(() {
       _currentPage = index;
@@ -74,10 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: PageView.builder(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, i) => SlideItem(
-                  slide: slideList[i],
+                  slide: slides[i],
                 ),
                 controller: _pageController,
-                itemCount: slideList.length,
+                itemCount: slides.length,
                 onPageChanged: _onPageChanged,
               ),
             ),
@@ -85,10 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  for (int i = 0; i < slideList.length; i++)
-                    if (i == _currentPage) SlideDots(true) else SlideDots(false)
-                ],
+                children: List.generate(
+                    slides.length, (i) => SlideDots(i == _currentPage)),
               ),
             ),
             BottomContainer(),
@@ -123,20 +126,20 @@ class SlideItem extends StatelessWidget {
             slide.title,
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
-          SizedBox(
-            height: ResponsiveWidgets.getSize(16),
+          Padding(
+            padding: EdgeInsetsResponsive.symmetric(vertical: 8),
           ),
           TextResponsive(
             slide.description,
             style: TextStyle(fontSize: 16, color: Colors.grey),
             textAlign: TextAlign.center,
           ),
-          SizedBox(
-            height: ResponsiveWidgets.getSize(32),
+          Padding(
+            padding: EdgeInsetsResponsive.symmetric(vertical: 16),
           ),
           SvgPicture.asset(
             slide.imageUrl,
-            height: MediaQuery.of(context).size.height / 4,
+            height: MediaQuery.of(context).size.height / 3,
           ),
         ],
       ),
@@ -163,61 +166,28 @@ class BottomContainer extends StatelessWidget {
           Padding(
             padding: EdgeInsetsResponsive.symmetric(vertical: 8),
           ),
-          MaterialButton(
-            elevation: 5,
-            child: TextResponsive(
-              'Continue with email',
-              style: TextStyle(
-                fontSize: 14,
-              ),
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(ResponsiveWidgets.getSize(8)),
-            ),
-            padding: EdgeInsetsResponsive.all(16),
-            color: const Color.fromARGB(255, 51, 175, 133),
-            textColor: Colors.white,
-            onPressed: () {},
+          FullWidthButton(
+            title: 'Continue with email',
+            screen: SignInScreen(),
           ),
           Padding(
             padding: EdgeInsetsResponsive.symmetric(vertical: 8),
           ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Expanded(
-                child: Divider(
-                  color: Colors.grey.withOpacity(0.3),
-                ),
-              ),
-              TextResponsive(
-                '    OR    ',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 12,
-                ),
-              ),
-              Expanded(
-                child: Divider(
-                  color: Colors.grey.withOpacity(0.3),
-                ),
-              ),
-            ],
-          ),
+          OrDivider(),
           Padding(
             padding: EdgeInsetsResponsive.symmetric(vertical: 8),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              CustomLoginButton(
+              HalfWidthButton(
                 title: 'Google',
                 imageUrl: 'images/google.svg',
               ),
               Padding(
                 padding: EdgeInsetsResponsive.symmetric(horizontal: 16),
               ),
-              CustomLoginButton(
+              HalfWidthButton(
                 title: 'Facebook',
                 imageUrl: 'images/fb.svg',
               ),
@@ -232,48 +202,6 @@ class BottomContainer extends StatelessWidget {
   }
 }
 
-class CustomLoginButton extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-
-  const CustomLoginButton({Key key, this.imageUrl, this.title})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: FlatButton(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SvgPicture.asset(
-              imageUrl,
-              height: MediaQuery.of(context).size.width / 16,
-            ),
-            Padding(
-              padding: EdgeInsetsResponsive.symmetric(horizontal: 8),
-            ),
-            TextResponsive(
-              title,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-              ),
-            ),
-          ],
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(ResponsiveWidgets.getSize(8)),
-          side: BorderSide(width: 1, color: Colors.grey[350]),
-        ),
-        padding: EdgeInsetsResponsive.all(16),
-        //color: const Color.fromARGB(255, 51, 175, 133),
-        onPressed: () {},
-      ),
-    );
-  }
-}
-
 class SlideDots extends StatelessWidget {
   final bool isActive;
   SlideDots(this.isActive);
@@ -281,8 +209,6 @@ class SlideDots extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ContainerResponsive(
-      //duration: Duration(milliseconds: 0),
-      //padding: EdgeInsetsResponsive.symmetric(horizontal: 8),
       margin: EdgeInsetsResponsive.symmetric(horizontal: 8, vertical: 16),
       height: isActive ? 8 : 4,
       width: isActive ? 32 : 16,
