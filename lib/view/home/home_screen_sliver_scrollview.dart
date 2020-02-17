@@ -7,15 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class HomeScreenSliverScrollView extends StatelessWidget {
   final int selectedIndex = 1;
 
-  Future<void> _signInAnonymously() async {
-    try {
-      final authResult = await FirebaseAuth.instance.signInAnonymously();
-      print('${authResult.user.uid}');
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -91,7 +82,7 @@ class HomeScreenSliverScrollView extends StatelessWidget {
                         TabBarButton(
                           title: 'Travellings',
                           isSelected: selectedIndex == 0,
-                          onTabTap: _signInAnonymously,
+                          onTabTap: () {},
                         ),
                         TabBarButton(
                           title: 'Nature',
