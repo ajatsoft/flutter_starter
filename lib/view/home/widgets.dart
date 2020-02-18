@@ -48,3 +48,75 @@ class HalfWidthButton extends StatelessWidget {
     );
   }
 }
+
+class FullWidthButton extends StatelessWidget {
+  final String title;
+  final Widget toScreen;
+  final Color backgroundColor;
+  final double elevation;
+  final Color textColor;
+
+  const FullWidthButton(
+      {Key key,
+      this.title,
+      this.toScreen,
+      this.backgroundColor = const Color.fromARGB(255, 51, 175, 133),
+      this.elevation = 3,
+      this.textColor = Colors.white})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialButton(
+      splashColor: Colors.transparent,
+      highlightElevation: 0,
+      elevation: elevation,
+      child: TextResponsive(
+        title,
+        style: TextStyle(
+          fontSize: 14,
+        ),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(ResponsiveWidgets.getSize(8)),
+      ),
+      padding: EdgeInsetsResponsive.all(16),
+      color: backgroundColor,
+      textColor: textColor,
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => toScreen),
+        );
+      },
+    );
+  }
+}
+
+class OrDivider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Expanded(
+          child: Divider(
+            color: Colors.grey.withOpacity(0.3),
+          ),
+        ),
+        TextResponsive(
+          '    OR    ',
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 12,
+          ),
+        ),
+        Expanded(
+          child: Divider(
+            color: Colors.grey.withOpacity(0.3),
+          ),
+        ),
+      ],
+    );
+  }
+}
