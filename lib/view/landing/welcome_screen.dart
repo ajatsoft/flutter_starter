@@ -1,18 +1,16 @@
-import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_page_transition/flutter_page_transition.dart';
-import 'package:flutter_starter/view/landing/landing_widgets.dart';
-import 'package:flutter_starter/view/landing/sign_in_screen.dart';
+import 'package:flutter_starter/view/landing/sign_in_email_screen.dart';
+import 'package:flutter_starter/view/landing/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_widgets/responsive_widgets.dart';
 
-class LandingScreen extends StatefulWidget {
+class WelcomeScreen extends StatefulWidget {
   @override
-  _LandingScreenState createState() => _LandingScreenState();
+  _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _LandingScreenState extends State<LandingScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen> {
   int _currentPage = 0;
   final int transitionDuration = 5; // seconds
   final int transitionAnimationSpeed = 300; // milliseconds
@@ -148,6 +146,15 @@ class SlideItem extends StatelessWidget {
 }
 
 class BottomContainer extends StatelessWidget {
+  void _signInWithEmail(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        //fullscreenDialog: true,
+        builder: (context) => SignInEmailScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -168,7 +175,7 @@ class BottomContainer extends StatelessWidget {
           ),
           FullWidthButton(
             title: 'Continue with email',
-            screen: SignInScreen(),
+            onPressed: () => _signInWithEmail(context),
           ),
           Padding(
             padding: EdgeInsetsResponsive.symmetric(vertical: 8),

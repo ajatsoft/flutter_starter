@@ -4,7 +4,7 @@ import 'package:responsive_widgets/responsive_widgets.dart';
 
 class FullWidthButton extends StatelessWidget {
   final String title;
-  final Widget screen;
+  final VoidCallback onPressed;
   final Color backgroundColor;
   final double elevation;
   final Color textColor;
@@ -12,7 +12,7 @@ class FullWidthButton extends StatelessWidget {
   const FullWidthButton(
       {Key key,
       this.title,
-      this.screen,
+      this.onPressed,
       this.backgroundColor = const Color.fromARGB(255, 51, 175, 133),
       this.elevation = 3,
       this.textColor = Colors.white})
@@ -36,12 +36,7 @@ class FullWidthButton extends StatelessWidget {
       padding: EdgeInsetsResponsive.all(16),
       color: backgroundColor,
       textColor: textColor,
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => screen),
-        );
-      },
+      onPressed: onPressed,
     );
   }
 }
@@ -114,5 +109,71 @@ class OrDivider extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class CustomTextField extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final bool isPassword;
+
+  const CustomTextField(
+      {Key key, this.icon, this.title, this.isPassword = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: Theme.of(context)
+          .copyWith(primaryColor: const Color.fromARGB(255, 51, 175, 133)),
+      child: TextField(
+        obscureText: isPassword,
+        style: TextStyle(
+          fontSize: ResponsiveWidgets.getSize(16),
+        ),
+        //autofocus: true,
+        cursorColor: const Color.fromARGB(255, 51, 175, 133),
+        decoration: new InputDecoration(
+          contentPadding: EdgeInsetsResponsive.all(0),
+          prefixIcon: IconResponsive(
+            icon,
+            size: 20,
+          ),
+          border: new OutlineInputBorder(
+            borderRadius: const BorderRadius.all(
+              const Radius.circular(10.0),
+            ),
+            borderSide: BorderSide(
+              width: 0,
+              style: BorderStyle.none,
+            ),
+          ),
+          filled: true,
+          hintStyle: new TextStyle(color: Colors.grey[500]),
+          hintText: title,
+          fillColor: Colors.grey.withOpacity(0.1),
+        ),
+      ),
+    );
+  }
+}
+
+class VPadding extends StatelessWidget {
+  final double value;
+
+  const VPadding(this.value);
+  @override
+  Widget build(BuildContext context) {
+    return Padding(padding: EdgeInsetsResponsive.symmetric(vertical: value));
+  }
+}
+
+class HPadding extends StatelessWidget {
+  final double value;
+
+  const HPadding(this.value);
+  @override
+  Widget build(BuildContext context) {
+    return Padding(padding: EdgeInsetsResponsive.symmetric(horizontal: value));
   }
 }

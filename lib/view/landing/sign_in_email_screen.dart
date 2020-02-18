@@ -1,10 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter/view/landing/landing_widgets.dart';
+import 'package:flutter_starter/view/landing/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_widgets/responsive_widgets.dart';
 
-class SignInScreen extends StatelessWidget {
+import 'create_email_screen.dart';
+
+class SignInEmailScreen extends StatelessWidget {
+  void _createEmail(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        fullscreenDialog: true,
+        builder: (context) => CreateEmailScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +81,7 @@ class SignInScreen extends StatelessWidget {
             ),
             FullWidthButton(
               title: 'Sign In',
-              screen: SignInScreen(),
+              onPressed: () {},
             ),
             Spacer(),
             OrDivider(),
@@ -79,58 +90,13 @@ class SignInScreen extends StatelessWidget {
             ),
             FullWidthButton(
               title: 'Create new account',
-              screen: SignInScreen(),
+              onPressed: () => _createEmail(context),
               backgroundColor:
                   const Color.fromARGB(255, 51, 175, 133).withOpacity(0.15),
               elevation: 0,
               textColor: const Color.fromARGB(255, 51, 175, 133),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final bool isPassword;
-
-  const CustomTextField({Key key, this.icon, this.title, this.isPassword})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context)
-          .copyWith(primaryColor: const Color.fromARGB(255, 51, 175, 133)),
-      child: TextField(
-        obscureText: isPassword,
-        style: TextStyle(
-          fontSize: ResponsiveWidgets.getSize(16),
-        ),
-        //autofocus: true,
-        cursorColor: const Color.fromARGB(255, 51, 175, 133),
-        decoration: new InputDecoration(
-          contentPadding: EdgeInsetsResponsive.all(0),
-          prefixIcon: IconResponsive(
-            icon,
-            size: 20,
-          ),
-          border: new OutlineInputBorder(
-            borderRadius: const BorderRadius.all(
-              const Radius.circular(10.0),
-            ),
-            borderSide: BorderSide(
-              width: 0,
-              style: BorderStyle.none,
-            ),
-          ),
-          filled: true,
-          hintStyle: new TextStyle(color: Colors.grey[500]),
-          hintText: title,
-          fillColor: Colors.grey.withOpacity(0.1),
         ),
       ),
     );
