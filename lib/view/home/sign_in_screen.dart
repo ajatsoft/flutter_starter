@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/services/auth.dart';
+import 'package:flutter_starter/view/home/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_widgets/models/responsive_widgets_model.dart';
 import 'package:responsive_widgets/responsive_widgets.dart';
@@ -12,6 +13,14 @@ class SignInScreen extends StatelessWidget {
   Future<void> _signInWithGoogle() async {
     try {
       await auth.signInWithGoogle();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> _signInWithFacebook() async {
+    try {
+      await auth.signInWithFacebook();
     } catch (e) {
       print(e.toString());
     }
@@ -46,6 +55,30 @@ class SignInScreen extends StatelessWidget {
                 'images/biscuit.svg',
                 height: ResponsiveWidgets.getSize(120),
               ),
+              Padding(
+                padding: EdgeInsetsResponsive.symmetric(vertical: 16),
+              ),
+              Row(
+                children: <Widget>[
+                  HalfWidthButton(
+                    title: 'Google',
+                    imageUrl: 'images/google.svg',
+                    onPressed: _signInWithGoogle,
+                  ),
+                  Padding(
+                    padding: EdgeInsetsResponsive.symmetric(horizontal: 16),
+                  ),
+                  HalfWidthButton(
+                    title: 'Facebook',
+                    imageUrl: 'images/facebook.svg',
+                    onPressed: _signInWithFacebook,
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsetsResponsive.symmetric(vertical: 16),
+              ),
+              Spacer(),
             ],
           ),
         ),
