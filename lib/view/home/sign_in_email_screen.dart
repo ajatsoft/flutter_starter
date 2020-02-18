@@ -1,10 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_starter/services/auth.dart';
 import 'package:flutter_starter/view/home/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_widgets/responsive_widgets.dart';
 
 class SignInEmailScreen extends StatelessWidget {
+  final AuthBase auth;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  SignInEmailScreen({Key key, this.auth}) : super(key: key);
+
+  String get _email => _emailController.text;
+  String get _password => _passwordController.text;
+
+  void _submit() async {
+    await auth.signInWithEmailAndPassword(_email, _password);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +35,7 @@ class SignInEmailScreen extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: IconButton(
                 icon: Icon(
-                  Icons.arrow_back_ios,
+                  Icons.close,
                   size: ResponsiveWidgets.getSize(32),
                 ),
                 onPressed: () {
@@ -56,11 +70,13 @@ class SignInEmailScreen extends StatelessWidget {
               icon: CupertinoIcons.mail,
               title: 'Email address',
               isPassword: false,
+              controller: _emailController,
             ),
             Padding(
               padding: EdgeInsetsResponsive.symmetric(vertical: 8),
             ),
             CustomTextField(
+              controller: _passwordController,
               icon: CupertinoIcons.padlock,
               title: 'Password',
               isPassword: true,
@@ -70,9 +86,7 @@ class SignInEmailScreen extends StatelessWidget {
             ),
             FullWidthButton(
               title: 'Sign In',
-              toScreen: Container(
-                color: Colors.red,
-              ),
+              onPressed: _submit,
             ),
             Spacer(),
             OrDivider(),
@@ -81,9 +95,7 @@ class SignInEmailScreen extends StatelessWidget {
             ),
             FullWidthButton(
               title: 'Create new account',
-              toScreen: Container(
-                color: Colors.blue,
-              ),
+              onPressed: () {},
               backgroundColor:
                   const Color.fromARGB(255, 51, 175, 133).withOpacity(0.15),
               elevation: 0,
@@ -100,8 +112,16 @@ class CustomTextField extends StatelessWidget {
   final IconData icon;
   final String title;
   final bool isPassword;
+  final ValueChanged<String> onChanged;
+  final TextEditingController controller;
 
-  const CustomTextField({Key key, this.icon, this.title, this.isPassword})
+  const CustomTextField(
+      {Key key,
+      this.icon,
+      this.title,
+      this.isPassword,
+      this.onChanged,
+      this.controller})
       : super(key: key);
 
   @override
@@ -110,6 +130,8 @@ class CustomTextField extends StatelessWidget {
       data: Theme.of(context)
           .copyWith(primaryColor: const Color.fromARGB(255, 51, 175, 133)),
       child: TextField(
+        controller: controller,
+        onChanged: onChanged,
         obscureText: isPassword,
         style: TextStyle(
           fontSize: ResponsiveWidgets.getSize(16),

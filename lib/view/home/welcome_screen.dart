@@ -131,6 +131,17 @@ class BottomContainer extends StatelessWidget {
 
   const BottomContainer({Key key, this.auth}) : super(key: key);
 
+  void _signInWithEmail(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        fullscreenDialog: true,
+        builder: (context) => SignInEmailScreen(
+          auth: auth,
+        ),
+      ),
+    );
+  }
+
   Future<void> _signInWithGoogle() async {
     try {
       await auth.signInWithGoogle();
@@ -175,7 +186,7 @@ class BottomContainer extends StatelessWidget {
           ),
           FullWidthButton(
             title: 'Continue with email',
-            toScreen: SignInEmailScreen(),
+            onPressed: () => _signInWithEmail(context),
           ),
           Padding(
             padding: EdgeInsetsResponsive.symmetric(vertical: 8),

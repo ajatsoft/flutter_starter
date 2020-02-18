@@ -51,18 +51,18 @@ class HalfWidthButton extends StatelessWidget {
 
 class FullWidthButton extends StatelessWidget {
   final String title;
-  final Widget toScreen;
   final Color backgroundColor;
   final double elevation;
   final Color textColor;
+  final VoidCallback onPressed;
 
   const FullWidthButton(
       {Key key,
       this.title,
-      this.toScreen,
       this.backgroundColor = const Color.fromARGB(255, 51, 175, 133),
       this.elevation = 3,
-      this.textColor = Colors.white})
+      this.textColor = Colors.white,
+      this.onPressed})
       : super(key: key);
 
   @override
@@ -83,12 +83,13 @@ class FullWidthButton extends StatelessWidget {
       padding: EdgeInsetsResponsive.all(16),
       color: backgroundColor,
       textColor: textColor,
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => toScreen),
-        );
-      },
+      onPressed: onPressed,
+//      onPressed: () {
+//        Navigator.push(
+//          context,
+//          MaterialPageRoute(builder: (context) => toScreen),
+//        );
+//      },
     );
   }
 }
